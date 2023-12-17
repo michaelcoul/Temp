@@ -1,9 +1,16 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template_string
 import matplotlib.pyplot as plt
 import io
 
 app = Flask(__name__)
 data = []
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template_string("""
+        <h1>Temperature Data</h1>
+        <img src="/plot" alt="Temperature Plot">
+    """)
 
 @app.route('/temperature', methods=['GET'])
 def temperature():
@@ -25,3 +32,4 @@ def plot():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+
